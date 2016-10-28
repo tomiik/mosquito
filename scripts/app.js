@@ -18,7 +18,34 @@ class Mosquito{
 		this.nextDirection = 0;
 		this.dead = false;
 		this.move();
+		this.timeCountStart(5000);
 		this.position = {"x":0, "y":0};
+	}
+	timeCountStart(initTime){
+		const progressbarRefresh = 100;
+		this.setIntervalId=setInterval(timeCount,progressbarRefresh);
+		var time = initTime
+		function timeCount(){
+			var progressbar = (time / initTime) * 100;
+			progressbar = Math.floor(progressbar);
+			if(progressbar < 20){
+				$("#timebar").removeClass("progress-bar-success");
+				$("#timebar").removeClass("progress-bar-warning");
+				$("#timebar").addClass("progress-bar-danger");
+			} else if(progressbar < 50){
+				$("#timebar").removeClass("progress-bar-success");
+				$("#timebar").addClass("progress-bar-warning");
+				$("#timebar").removeClass("progress-bar-danger");
+			} else{
+				$("#timebar").addClass("progress-bar-success");
+				$("#timebar").removeClass("progress-bar-warning");
+				$("#timebar").removeClass("progress-bar-danger");
+			}
+
+			$("#timebar").css("width",progressbar + "%");
+			console.log(time);
+			time-=progressbarRefresh;
+		}
 	}
 	move(){
 		this.setIntervalId=setInterval(moveMosquito,1)

@@ -2,6 +2,13 @@ body{
   font-family: 'Baloo Paaji', cursive;
 }
 
+.progress {
+  width: 800px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+}
+
 #playArea {
   width: 800px;
   height: 400px;
@@ -19,6 +26,7 @@ body{
   background-color: transparent;
   //background-size: cover;
 }
+
 
 .exist{
   background-color: #000;
