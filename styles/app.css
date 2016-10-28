@@ -1,0 +1,19 @@
+#playArea {
+  width: 800px;
+  height: 400px;
+  position: relative;
+  border-color: black;
+  border-width: 4px;
+  border-style: solid;
+}
+
+#car {
+  width: 3px;
+  height: 3px;
+  //background-image: url('./images/omcar.png');
+  position: absolute;
+  background-color: #000;
+  //background-size: cover;
+}
+
+#mosquito
