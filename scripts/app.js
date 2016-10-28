@@ -3,17 +3,18 @@ const xMin = 0;
 const xMax = 800;
 const yMin = 0;
 const yMax = 400;
+const handSize = 30;
+const handSize_2 = handSize/2;
 
-class Car{
-	constructor(inputDomElement,model){
+class Mosquito{
+	constructor(inputDomElement,speed){
 		this.domElement=inputDomElement;
-		this.domElement.css('left','10px');
-		this.domElement.css('top','10px');
-		this.direction=0;
-		this.increment=true;
-		this.speed=1;
+		moveToRandomPosition(this);
+		this.angle= setRandomDirection();
+		this.speed=speed;
 		this.crashed = false;
 		this.nextDirection = 0;
+		this.dead = false;
 		this.move();
 	}
 	move(){
@@ -21,7 +22,7 @@ class Car{
 		const stopDulation = 100;
 		var position = getPosition(this);
 		var domElement=this.domElement;
-		var carObj=this;
+		var me=this;
 		var changeDirCount = 30;
 		var nextDirection = 0;
 		var stop = false;
@@ -31,10 +32,10 @@ class Car{
 
 		function moveMosquito(){
 			//console.log(carObj.direction);
-			var carDirection = parseInt(carObj.direction);
+			var angle = parseInt(me.angle);
 
 
-			carDirection = degin360(carDirection);
+			angle = degin360(angle);
 
 			//console.log("deg:" + (carDirection));
 			if(changeDirCount < 0){
@@ -46,11 +47,13 @@ class Car{
 					stop = true;
 				}
 			}
-			carDirection += nextDirection;
+			angle += nextDirection;
 			//console.log("cd:" + carDirection);
 
 			if(stop == false){
-				direction = getDirection(carDirection);
+				direction = getDirection(angle);
+				position = proceed(position, direction, speed);
+				position = boarderCheck(position);
 			} else{
 				stopcount--;
 				if(stopcount < 0){
@@ -58,20 +61,14 @@ class Car{
 					stop = false;
 				}
 			}
-			console.log(direction)
-			//console.log(directionX + "," + directionY);
-			//console.log("currentspeed:" + speed);
 
-			position = proceed(position, direction, speed);
-
-			position = boarderCheck(position);
 
 
 			//console.log(carObj.crashed)
-			if(carObj.crashed == false){
-				carObj.speed = speed;
-				carObj.direction = carDirection;
-				domElement.css("transform", "rotate(" + (carDirection) + "deg)");
+			if(me.crashed == false){
+				me.speed = speed;
+				me.angle = angle;
+				domElement.css("transform", "rotate(" + (angle) + "deg)");
 				domElement.css("left",position.x+'px');
 				domElement.css("top",position.y+'px');
 			}
@@ -87,50 +84,80 @@ class Car{
 
 	crash(){
 		console.log("crashed");
-		$(car).css({"background-image":"url('./images/crashed.png')"});
+		this.domElement.addClass("dead")
 		this.crashed = true;
 	}
-
-	increaseSpeed(){
-		if (this.speed<=5){
-			this.speed++;
-		}
-	}
-	decreaseSpeed(){
-		if (this.speed>-1){
-			this.speed--;
-		}
+	getPosition(){
+		var position = {"x": 0, "y": 0};
+		var x = parseInt(this.domElement.css("left"));
+		var y = parseInt(this.domElement.css("top"));
+		position.x = x;
+		position.y = y;
+		return position;
 	}
 }
 
 
-$(document).ready(function(){
-	var carDomElement=$('#car');
-	var carObject = new Car(carDomElement,"SUV");
+class GameManager{
 
+	constructor(){
+		console.log("GameManager");
+		var mosDomElement1=$('#mos1');
+		var mosDomElement2=$('#mos2');
+		this.mosquito1 = new Mosquito(mosDomElement1,0.5);
+		this.mosquito2 = new Mosquito(mosDomElement2,0.3);
+		this.score = 0;
+	}
+
+	click(e){
+		var position={"x": parseInt($("#car").css("left")), "y": parseInt($("#car").css("top"))}
+		//console.log(position);
+		//console.log(e.clientX);
+		//console.log(e.clientY);
+			console.log(this.mosquito1.getPosition());
+			var position = this.mosquito1.getPosition();
+		if(e.clientX-handSize < position.x && position.x < e.clientX && e.clientY-handSize < position.y && position.y < e.clientY){
+			this.mosquito1.crash();
+		}
+		position={"x": parseInt($("#car2").css("left")), "y": parseInt($("#car2").css("top"))}
+		var position = this.mosquito2.getPosition();
+		if(e.clientX-handSize < position.x && position.x < e.clientX && e.clientY-handSize < position.y && position.y < e.clientY){
+			this.mosquito2.crash();
+		}
+	}
+}
+
+$(document).ready(function(){
+
+	var manager = new GameManager();
+
+
+	$(window).mousemove( function(e) {
+	  $("#info").html(info);
+		var x = e.clientX - handSize + "px";
+		var y = e.clientY - handSize + "px";
+		$("#hand").css({"left": x, "top":y});
+	});
+
+	$(window).click( function(e){
+	//	position = getPosition($("#car"));
+		manager.click(e);
+	});
 
 	$(document).keydown(function(key){
 		//console.log(key.keyCode);
 		switch(key.keyCode){
 			case 37://Left Arrow
-			objControlSystem.turnLeft();
 			break;
 			case 39:// Right arrow
-			objControlSystem.turnRight();
 			break;
 			case 38:// Up arrow
-
-			objControlSystem.accelerate();
-			objControlSystem2.accelerate();
 			break;
 			case 40:// Down arrow
-			objControlSystem.slowDown();
 			break;
 			case 32://When space, stop the car
-			objControlSystem.stop();
 			break;
 			case 65: // accelerate when a is pressed
-			objControlSystem.respawn();
 			break;
 		}
 	});
@@ -183,4 +210,16 @@ function boarderCheck(position){
 		position.y += yMax;
 	}
 	return position;
+}
+
+
+function moveToRandomPosition(element){
+	var x = Math.floor(Math.random() * xMax);
+	var y = Math.floor(Math.random() * yMax);
+	console.log(element)
+	element.domElement.css({"left": x + "px", "top": y+"px"});
+}
+
+function setRandomDirection(){
+	return  Math.floor(Math.random() * 360);
 }
