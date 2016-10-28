@@ -1,4 +1,6 @@
-
+body{
+  font-family: 'Baloo Paaji', cursive;
+}
 
 #playArea {
   width: 800px;
@@ -14,18 +16,36 @@
   height: 3px;
   //background-image: url('./images/omcar.png');
   position: absolute;
-  background-color: #000;
+  background-color: transparent;
   //background-size: cover;
 }
 
+.exist{
+  background-color: #000;
+}
+
 .dead{
-  box-shadow: 0px 0px 3px 4px #f00;
+  box-shadow: 0px 0px 1px 2px #f00;
 }
 
 #hand {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   border-style: solid;
   color: red;
+}
+
+#message{
+  position: absolute;
+  font-size: 2em;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+#info{
+  font-size: 1em;
 }
