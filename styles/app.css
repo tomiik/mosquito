@@ -46,14 +46,27 @@ body{
 
 #message{
   position: absolute;
-  font-size: 2em;
-  top: 0;
+  text-align:center;
+  font-size: 3em;
+  top: 50%;
   bottom: 0;
   right: 0;
   left: 0;
   margin: 0 auto;
+  margin-top: -1em;
 }
 
 #info{
+  width: 800px;
   font-size: 1em;
+  position: relative;
+}
+#info-left {
+  position :absolute;
+  left: 0;
+}
+#info-right {
+  position :absolute;
+  right: 0;
+  clear: left;
 }

@@ -106,11 +106,11 @@ class Mosquito{
 		this.domElement.addClass("exist")
 	}
 	crash(){
-		console.log("crashed");
+		//console.log("crashed");
 		this.domElement.addClass("dead")
 		this.dead = true;
 		var score = this.speed * this.power * 100;
-		console.log(score);
+		//console.log("score:" + score);
 		this.stop();
 		return score;
 	}
@@ -124,6 +124,6 @@ class Mosquito{
 	}
   reset(){
     this.domElement.removeClass("dead")
-    this.domElement.removeClass("exist")    
+    this.domElement.removeClass("exist")
   }
 }

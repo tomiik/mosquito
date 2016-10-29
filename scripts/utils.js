@@ -22,7 +22,7 @@ function getDirection(deg){
 function moveToRandomPosition(element){
 	var x = Math.floor(Math.random() * xMax);
 	var y = Math.floor(Math.random() * yMax);
-	console.log(element);
+	//console.log(element);
 	element.domElement.css({"left": x + "px", "top": y+"px"});
 }
 
@@ -44,6 +44,7 @@ function redrawProgressBar(progress){
     $("#timebar").removeClass("progress-bar-warning");
     $("#timebar").removeClass("progress-bar-danger");
   }
+  console.log("renewprogress():" + progress)
   $("#timebar").css("width",progress + "%");
   $("#timebar").attr("aria-valuenow", progress);
 }
