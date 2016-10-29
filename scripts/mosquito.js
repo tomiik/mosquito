@@ -1,11 +1,12 @@
 class Mosquito{
-	constructor(inputDomElement,speed, power){
+	constructor(inputDomElement,speed, hp){
 		this.domElement=inputDomElement;
 		moveToRandomPosition(this);
-		this.created();
 		this.angle= setRandomDirection();
 		this.speed=speed;
-		this.power=power;
+		this.hp=hp;
+		this.initialhp = hp;
+		this.created();
 		this.nextDirection = 0;
 		this.dead = false;
 		this.move();
@@ -60,9 +61,11 @@ class Mosquito{
 		}
 	}
 	redraw(){
+		var temp = this.domElement.parent();
+		temp = temp[0];
 		this.domElement.css("transform", "rotate(" + (this.angle) + "deg)");
-		this.domElement.css("left",this.position.x+'px');
-		this.domElement.css("top",this.position.y+'px');
+		$(temp).css("left",this.position.x+'px');
+		$(temp).css("top",this.position.y+'px');
 	}
 	refreshParams(speed, angle, position){
 		this.angle = angle;
@@ -104,20 +107,33 @@ class Mosquito{
 	}
 	created(){
 		this.domElement.addClass("exist")
+		this.setHpBar(this.initialhp);
+
 	}
 	crash(){
-		//console.log("crashed");
-		this.domElement.addClass("dead")
-		this.dead = true;
-		var score = this.speed * this.power * 100;
-		//console.log("score:" + score);
-		this.stop();
-		return score;
+		this.hp -= 1;
+		this.setHpBar(this.hp);
+		//console.log("hpbar" + this.power)
+		//console.log(hpbar)
+		if(this.hp <= 0){
+			//console.log("crashed");
+			this.domElement.addClass("dead")
+			this.dead = true;
+			var score = this.speed * this.initialhp * 100;
+			//console.log("score:" + score);
+			this.stop();
+			return score;
+		}
+		return 0;
 	}
 	getPosition(){
 		var position = {"x": 0, "y": 0};
-		var x = parseInt(this.domElement.css("left"));
-		var y = parseInt(this.domElement.css("top"));
+
+		var temp = this.domElement.parent();
+		temp = temp[0];
+
+		var x = parseInt($(temp).css("left"));
+		var y = parseInt($(temp).css("top"));
 		position.x = x;
 		position.y = y;
 		return position;
@@ -126,4 +142,10 @@ class Mosquito{
     this.domElement.removeClass("dead")
     this.domElement.removeClass("exist")
   }
+	setHpBar(hp){
+		var hpbar = this.domElement.parent().children();
+		hpbar = hpbar[0];
+		$(hpbar).css("width", hpbarlen*hp + "px");
+		$(hpbar).css("left", 1-(hpbarlen*hp/2) + "px");
+	}
 }

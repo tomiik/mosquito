@@ -23,7 +23,9 @@ function moveToRandomPosition(element){
 	var x = Math.floor(Math.random() * xMax);
 	var y = Math.floor(Math.random() * yMax);
 	//console.log(element);
-	element.domElement.css({"left": x + "px", "top": y+"px"});
+	var temp = element.domElement.parent();
+	temp = temp[0];
+	$(temp).css({"left": x + "px", "top": y+"px"});
 }
 
 function setRandomDirection(){

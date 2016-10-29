@@ -38,6 +38,23 @@ section{
   //background-size: cover;
 
 }
+
+.mosquito-frame {
+  width:0;
+  height: 0;
+  position: absolute;
+}
+.mosquito-hp {
+  background-color: #2f2;
+  width: 0;
+  height: 2px;
+  left: -10px;
+  right: 0;
+  top: -15px;
+  margin: 0 auto;
+  position: absolute;
+}
+
 .exist{
   background-color: #000;
 }

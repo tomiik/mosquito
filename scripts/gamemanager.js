@@ -70,7 +70,7 @@ class GameManager{
       }
 			else if(parseInt($("#num_of_mosquitoes").text()) <= 0 && me.won == false && me.creating == false){
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-          me.numOfMosquitoes = 1;
+          me.numOfMosquitoes = "";
           me.killed = 0;
 					me.win();
           //me.won = true;
@@ -120,7 +120,7 @@ class GameManager{
 		var time = this.getTimeRemain();
 		console.log("remain time: " +time);
 		this.addScore(Math.floor((time/100) * this.getScore()));
-		this.refreshScore();
+		this.refreshStatus();
     this.clearMosquitoes();
     me.won = true;
 
@@ -147,7 +147,10 @@ class GameManager{
           if(!mosquito.dead)
           {
             score += mosquito.crash();
-            killed++;
+						console.log("score:" + score)
+						if(score != 0){
+							killed++;
+						}
           }
         }
       });
