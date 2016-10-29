@@ -89,7 +89,7 @@ class GameManager{
       me.setMessage("Go",10);
       me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1],mosquitoes[2]);
       me.refreshStatus();
-      me.timeCountStart(5000);
+      me.timeCountStart(time*1000);
       me.creating = false;
       console.log("me.creating = false")
     },4000)
@@ -117,7 +117,10 @@ class GameManager{
     var me = this;
     this.setMessage("Clear",1000);
 		this.stop_progressbar();
-		this.getTimeRemain();
+		var time = this.getTimeRemain();
+		console.log("remain time: " +time);
+		this.addScore(Math.floor((time/100) * this.getScore()));
+		this.refreshScore();
     this.clearMosquitoes();
     me.won = true;
 
@@ -136,7 +139,11 @@ class GameManager{
       var score = 0;
       this.mosquitoes.forEach(function(mosquito, index){
         var position = mosquito.getPosition();
-        if(e.clientX-handSize < position.x && position.x < e.clientX && e.clientY-handSize < position.y && position.y < e.clientY){
+				var offset = $("#playArea").position();
+				var offsetX = offset["left"];
+				var offsetY = offset["top"];
+
+        if(e.clientX-offsetX-handSize < position.x && position.x < e.clientX-offsetX && e.clientY-offsetY-handSize < position.y && position.y < e.clientY-offsetY){
           if(!mosquito.dead)
           {
             score += mosquito.crash();
@@ -153,6 +160,9 @@ class GameManager{
   addScore(score){
     this.score += score;
   }
+	getScore(){
+		return this.score;
+	}
   clearScore(){
     this.score = 0;
   }
@@ -180,7 +190,13 @@ class GameManager{
 		//var str_mos = "mosquitoes:" + (this.numOfMosquitoes - this.killed);
 		//var str_score = ",score:" + this.score;
 		//$("#info").text(str_mos + str_score);
-		$("#num_of_mosquitoes").text(this.numOfMosquitoes - this.killed);
+		this.refreshScore();
+		this.refreshNumOfMosquitoes();
+	}
+	refreshScore(){
 		$("#score").text(this.score);
+	}
+	refreshNumOfMosquitoes(){
+		$("#num_of_mosquitoes").text(this.numOfMosquitoes - this.killed);
 	}
 }

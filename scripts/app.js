@@ -4,8 +4,12 @@ $(document).ready(function(){
 	var manager = new GameManager();
 
 	$(window).mousemove( function(e) {
-		var x = e.clientX - handSize + "px";
-		var y = e.clientY - handSize + "px";
+		var offset = $("#playArea").position();
+		var offsetX = offset["left"];
+		var offsetY = offset["top"];
+		//console.log(offsetX)
+		var x = e.clientX -offsetX- handSize + "px";
+		var y = e.clientY - offsetY - handSize + "px";
 		$("#hand").css({"left": x, "top":y});
 	});
 

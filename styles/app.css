@@ -1,72 +1,71 @@
-body{
+body {
   font-family: 'Baloo Paaji', cursive;
-}
+  background-color: #28d;
+  overflow-y: hidden; }
+
+section {
+  width: 800px;
+  margin: 0 auto; }
 
 .progress {
   width: 800px;
   border-style: solid;
   border-color: black;
-  border-radius: 10px;
-}
+  border-radius: 10px; }
 
 #playArea {
+  background-color: #fff;
   width: 800px;
   height: 400px;
   position: relative;
   border-color: black;
   border-width: 4px;
   border-style: solid;
-}
+  cursor: none; }
 
 .mosquito {
   width: 3px;
   height: 3px;
-  //background-image: url('./images/omcar.png');
   position: absolute;
-  background-color: transparent;
-  //background-size: cover;
-}
+  background-color: transparent; }
 
+.exist {
+  background-color: #000; }
 
-.exist{
-  background-color: #000;
-}
-
-.dead{
-  box-shadow: 0px 0px 1px 2px #f00;
-}
+.dead {
+  box-shadow: 0px 0px 1px 2px #f00; }
 
 #hand {
   position: absolute;
   width: 60px;
   height: 60px;
   border-style: solid;
-  color: red;
-}
+  color: red; }
 
-#message{
+#message {
   position: absolute;
-  text-align:center;
+  text-align: center;
+  color: #28d;
   font-size: 3em;
   top: 50%;
   bottom: 0;
   right: 0;
   left: 0;
   margin: 0 auto;
-  margin-top: -1em;
-}
+  margin-top: -1em; }
 
-#info{
+#info {
+  color: #fff;
   width: 800px;
-  font-size: 1em;
+  font-size: 2em;
   position: relative;
-}
-#info-left {
-  position :absolute;
-  left: 0;
-}
-#info-right {
-  position :absolute;
-  right: 0;
-  clear: left;
-}
+  padding-bottom: 1.2em; }
+  #info #info-left {
+    position: absolute;
+    left: 0; }
+  #info #info-right {
+    position: absolute;
+    right: 0;
+    clear: left; }
+
+/*# sourceMappingURL=app.css.map */
