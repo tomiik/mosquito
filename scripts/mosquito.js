@@ -122,4 +122,8 @@ class Mosquito{
 		position.y = y;
 		return position;
 	}
+  reset(){
+    this.domElement.removeClass("dead")
+    this.domElement.removeClass("exist")    
+  }
 }
