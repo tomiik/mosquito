@@ -3,8 +3,8 @@ class GameManager{
 		console.log("GameManager");
 		this.mosquitoes = [];
 		this.numOfMosquitoes = this.createMosquitoes(3,0.5,1);
-		this.killed = 0;
-		this.score = 0;
+		this.clearTotalKill();//this.killed = 0;
+		this.clearScore();//this.score = 0;
 		//this.generateMosquitoes(3,1);
 		this.refreshStatus();
 		this.start();
@@ -25,7 +25,7 @@ class GameManager{
 				me.gameover();
 			}
 
-			time-=progressbarRefresh;
+			time -= progressbarRefresh;
 		}
 	}
 	gameover(){
@@ -63,8 +63,6 @@ class GameManager{
 			clearInterval(this.setIntervalIdStatus);
 		}
 	}
-
-
 	click(e){
 		var killed = 0;
 		var score = 0;
@@ -78,10 +76,23 @@ class GameManager{
 				}
 			}
 		});
-		this.killed += killed;
-		this.score += score;
+		this.addTotalKill(killed);
+		this.addScore(score);
 		this.refreshStatus();
 	}
+
+  addScore(score){
+    this.score += score;
+  }
+  clearScore(){
+    this.score = 0;
+  }
+  addTotalKill(n){
+    this.killed += n;
+  }
+  clearTotalKill(){
+    this.killed = 0;
+  }
 
 	createMosquitoes(number, speed, power){
 		var count = 0;
