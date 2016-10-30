@@ -24,14 +24,20 @@ section {
   cursor: none; }
 
 .mosquito {
-  width: 3px;
-  height: 3px;
+  width: 10px;
+  height: 10px;
+  background-image: url("../images/mos.png");
   position: absolute;
-  background-color: transparent; }
+  background-color: transparent;
+  background-size: cover;
+  background-width: 100%;
+  background-height: 100%;
+  visibility: hidden; }
 
 .mosquito-frame {
   width: 0;
   height: 0;
+  background-color: transparent;
   position: absolute; }
 
 .mosquito-hp {
@@ -45,7 +51,7 @@ section {
   position: absolute; }
 
 .exist {
-  background-color: #000; }
+  visibility: visible; }
 
 .dead {
   box-shadow: 0px 0px 1px 2px #f00; }

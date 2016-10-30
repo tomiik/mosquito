@@ -89,6 +89,7 @@ class GameManager{
       me.setMessage("Go",10);
       me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1],mosquitoes[2]);
       me.refreshStatus();
+			sfxStageStart();
       me.timeCountStart(time*1000);
       me.creating = false;
       console.log("me.creating = false")
@@ -149,10 +150,15 @@ class GameManager{
             score += mosquito.crash();
 						console.log("score:" + score)
 						if(score != 0){
+							SfxDie();
 							killed++;
+						}else{
+							SfxHit();
 						}
           }
-        }
+        }else{
+					//SfxMiss();
+				}
       });
       this.addTotalKill(killed);
       this.addScore(score);

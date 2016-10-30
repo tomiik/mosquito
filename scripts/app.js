@@ -2,7 +2,8 @@
 
 $(document).ready(function(){
 	var manager = new GameManager();
-
+	playBgm();
+	
 	$(window).mousemove( function(e) {
 		var offset = $("#playArea").position();
 		var offsetX = offset["left"];

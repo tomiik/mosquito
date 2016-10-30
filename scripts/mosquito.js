@@ -115,7 +115,9 @@ class Mosquito{
 		this.setHpBar(this.hp);
 		//console.log("hpbar" + this.power)
 		//console.log(hpbar)
+
 		if(this.hp <= 0){
+			//SfxDie();
 			//console.log("crashed");
 			this.domElement.addClass("dead")
 			this.dead = true;
@@ -123,6 +125,8 @@ class Mosquito{
 			//console.log("score:" + score);
 			this.stop();
 			return score;
+		} else {
+			//SfxHit();
 		}
 		return 0;
 	}
