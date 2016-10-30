@@ -1,8 +1,9 @@
 class Mosquito{
-	constructor(inputDomElement,speed, hp){
+	constructor(inputDomElement,num,speed, hp){
 		this.domElement=inputDomElement;
 		moveToRandomPosition(this);
 		this.angle= setRandomDirection();
+		this.num = num;
 		this.speed=speed;
 		this.hp=hp;
 		this.initialhp = hp;
@@ -110,8 +111,8 @@ class Mosquito{
 		this.setHpBar(this.initialhp);
 
 	}
-	crash(){
-		this.hp -= 1;
+	crash(damage){
+		this.hp -= damage;
 		this.setHpBar(this.hp);
 		//console.log("hpbar" + this.power)
 		//console.log(hpbar)

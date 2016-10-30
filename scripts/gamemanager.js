@@ -98,6 +98,8 @@ class GameManager{
   setMessage(str,time){
     //console.log("setMessage")
     var me = this;
+		consoleWrite(str);
+
     $("#message").text(str);
     me.messageFadeIn();
     setTimeout(function(){
@@ -120,7 +122,9 @@ class GameManager{
 		this.stop_progressbar();
 		var time = this.getTimeRemain();
 		console.log("remain time: " +time);
-		this.addScore(Math.floor((time/100) * this.getScore()));
+		var bonus = Math.floor((time/100) * this.getScore());
+		this.addScore(bonus);
+		consoleWrite("You got " + bonus + "point.")
 		this.refreshStatus();
     this.clearMosquitoes();
     me.won = true;
@@ -135,6 +139,7 @@ class GameManager{
     this.mosquitoes = [];
   }
 	click(e){
+		var me = this;
     if(this.gameover == false){
       var killed = 0;
       var score = 0;
@@ -147,14 +152,19 @@ class GameManager{
         if(e.clientX-offsetX-handSize < position.x && position.x < e.clientX-offsetX && e.clientY-offsetY-handSize < position.y && position.y < e.clientY-offsetY){
           if(!mosquito.dead)
           {
-            score += mosquito.crash();
-						console.log("score:" + score)
+						var damage = me.damageCalc(10,3);
+						var consoleOutStr = "Mosquito" + mosquito.num + " got damage " + damage + ".";
+            score += mosquito.crash(damage);
+						//console.log("score:" + score)
 						if(score != 0){
 							SfxDie();
+							consoleOutStr += " You killed mosquito" + mosquito.num + ".";
+							consoleOutStr += " You got " + score + " points." ;
 							killed++;
 						}else{
 							SfxHit();
 						}
+						consoleWrite(consoleOutStr);
           }
         }else{
 					//SfxMiss();
@@ -165,7 +175,10 @@ class GameManager{
       this.refreshStatus();
     }
 	}
-
+	damageCalc(strength,luck){
+		var damage = strength + Math.floor(luck * Math.random());
+		return damage;
+	}
   addScore(score){
     this.score += score;
   }
@@ -188,7 +201,7 @@ class GameManager{
 		var offset = this.mosquitoes.length;
     var max = Math.min(maxMosquitoes, number + offset);
 		for(var i = offset + 1; i <= max; i++){
-			this.mosquitoes.push(new Mosquito($('#mos' + i), speed, power));
+			this.mosquitoes.push(new Mosquito($('#mos' + i),i, speed, power));
 			count++;
 		}
     console.log("createMosquitoes()" + count);

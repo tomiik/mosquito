@@ -89,6 +89,10 @@ section {
     right: 0;
     clear: left; }
 
+.console-text {
+  color: #fff;
+  font-size: 1.5em; }
+
 * {
   -moz-user-select: none;
   -webkit-user-select: none;

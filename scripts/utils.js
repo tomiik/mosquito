@@ -46,7 +46,7 @@ function redrawProgressBar(progress){
     $("#timebar").removeClass("progress-bar-warning");
     $("#timebar").removeClass("progress-bar-danger");
   }
-  console.log("renewprogress():" + progress)
+  //console.log("renewprogress():" + progress)
   $("#timebar").css("width",progress + "%");
   $("#timebar").attr("aria-valuenow", progress);
 }

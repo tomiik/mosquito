@@ -6,4 +6,4 @@ const handSize = 60;
 const handSize_2 = handSize/2;
 const maxMosquitoes = 100;
 const progressbarRefresh = 100;
-const hpbarlen = 5;
+const hpbarlen = 1;
