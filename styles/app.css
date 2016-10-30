@@ -89,4 +89,9 @@ section {
     right: 0;
     clear: left; }
 
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none; }
+
 /*# sourceMappingURL=app.css.map */
