@@ -16,6 +16,7 @@ section{
   border-style: solid;
   border-color: black;
   border-radius: 10px;
+  border-width: 2px;
 }
 
 #playArea {
@@ -24,9 +25,10 @@ section{
   height: 400px;
   position: relative;
   border-color: black;
-  border-width: 4px;
+  border-width: 2px;
   border-style: solid;
   cursor: none;
+  border-radius: 5px;
 }
 
 .mosquito {
@@ -74,6 +76,7 @@ section{
   height: 60px;
   border-style: solid;
   color: red;
+  border-radius: 5px;
 }
 
 #message{
@@ -92,12 +95,24 @@ section{
 #info{
   color: #fff;
   width: 800px;
-  font-size: 2em;
+  font-size: 1.2em;
   position: relative;
   padding-bottom: 1.2em;
   #info-left {
     position :absolute;
     left: 0;
+  }
+  #info-center{
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-size: 1em;
+    margin:0 auto;
+    margin-top: 0px;
+    margin-left: 260px;
+    #strength{
+
+    }
   }
   #info-right {
     position :absolute;
@@ -108,8 +123,43 @@ section{
 
 .console-text{
   color: #fff;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
+
+
+#shop{
+  .row{
+    display: inline-block;
+
+    .item-box {
+      float: left;
+      position: relative;
+      background-color: #fff;
+      width: 90px;
+      height: 70px;
+      border-radius: 5px;
+      text-align: center;
+      margin-top : 3px;
+      margin-bottom: 3px;
+      margin-left: 20px;
+      i {
+        font-size: 2em;
+      }
+      p{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        margin-top: -1.7em;
+      }
+    }
+    .item-box:hover{
+      background-color: #ccc;
+    }
+  }
+}
+
 * {
   -moz-user-select: none;
 -webkit-user-select: none;

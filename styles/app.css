@@ -11,7 +11,8 @@ section {
   width: 800px;
   border-style: solid;
   border-color: black;
-  border-radius: 10px; }
+  border-radius: 10px;
+  border-width: 2px; }
 
 #playArea {
   background-color: #fff;
@@ -19,9 +20,10 @@ section {
   height: 400px;
   position: relative;
   border-color: black;
-  border-width: 4px;
+  border-width: 2px;
   border-style: solid;
-  cursor: none; }
+  cursor: none;
+  border-radius: 5px; }
 
 .mosquito {
   width: 10px;
@@ -61,7 +63,8 @@ section {
   width: 60px;
   height: 60px;
   border-style: solid;
-  color: red; }
+  color: red;
+  border-radius: 5px; }
 
 #message {
   position: absolute;
@@ -78,12 +81,20 @@ section {
 #info {
   color: #fff;
   width: 800px;
-  font-size: 2em;
+  font-size: 1.2em;
   position: relative;
   padding-bottom: 1.2em; }
   #info #info-left {
     position: absolute;
     left: 0; }
+  #info #info-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-size: 1em;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-left: 260px; }
   #info #info-right {
     position: absolute;
     right: 0;
@@ -91,7 +102,32 @@ section {
 
 .console-text {
   color: #fff;
-  font-size: 1.5em; }
+  font-size: 1.2em; }
+
+#shop .row {
+  display: inline-block; }
+  #shop .row .item-box {
+    float: left;
+    position: relative;
+    background-color: #fff;
+    width: 90px;
+    height: 70px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 20px; }
+    #shop .row .item-box i {
+      font-size: 2em; }
+    #shop .row .item-box p {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      margin-top: -1.7em; }
+  #shop .row .item-box:hover {
+    background-color: #ccc; }
 
 * {
   -moz-user-select: none;

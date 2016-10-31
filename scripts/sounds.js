@@ -19,6 +19,7 @@ function SfxMiss(){
 }
 function playBgm(){
   bgm.loop = true;
+  bgm.volume = 0.4;
   bgm.play();
 }
 function sfxStageStart(){

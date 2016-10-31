@@ -14,7 +14,9 @@
 		<script type="text/javascript" src="scripts/stagegenerator.js"></script>
 		<script type="text/javascript" src="scripts/sounds.js"></script>
 		<script type="text/javascript" src="scripts/console.js"></script>
+		<script type="text/javascript" src="scripts/items.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Baloo+Paaji" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" href="styles/animate.css">
 	</head>
 	<body>
@@ -27,6 +29,13 @@
 			<div id="info">
 				<div id="info-left">
 					mosquitoes: <span id="num_of_mosquitoes"  >0</span>
+				</div>
+				<div id="info-center">
+					Lv: <span id="level">0</span>/
+					Str: <span id="strength">0</span>/
+					Lck: <span id="luck">0</span>/
+					Exp: <span id="exp">0</span>/
+					Mon: <span id="money">0</span>
 				</div>
 				<div id="info-right">
 					score: <span id="score">0</span>
@@ -230,6 +239,41 @@
 				<div id="mos100" class="mosquito"></div>
 				<div id="hand"></div>
 			</div>
+		</section>
+		<section id="shop">
+			<div class="row">
+				<div id="buy_weapon" class="item-box">
+					<p>
+						<i class="fa fa-gavel" aria-hidden="true"></i><br>
+						100 mon<br>
+					</p>
+				</div>
+				<div id="buy_widen" class="item-box" onclick="buy_widen()">
+					<p>
+						<i class="fa fa-arrows" aria-hidden="true"></i><br>
+						1000 mon<br>
+					</p>
+				</div>
+				<div class="item-box">
+					<p>
+						<i class="fa fa-bolt" aria-hidden="true"></i><br>
+						100 mon<br>
+					</p>
+				</div>
+				<div class="item-box">
+					<p>
+						<i class="fa fa-history" aria-hidden="true"></i><br>
+						100 mon<br>
+					</p>
+				</div>
+				<div class="item-box">
+					<p>
+						<i class="fa fa-magnet" aria-hidden="true"></i><br>
+						100 mon<br>
+					</p>
+				</div>
+			</div>
+
 		</section>
 		<section id="console">
 			<div id="console-screen">
