@@ -7,3 +7,4 @@ var handSize_2 = handSize/2;
 const maxMosquitoes = 100;
 const progressbarRefresh = 100;
 const hpbarlen = 1;
+var magpow = 1;

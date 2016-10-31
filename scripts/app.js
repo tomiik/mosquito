@@ -9,7 +9,7 @@ $(document).ready(function(){
 		var offsetX = offset["left"];
 		var offsetY = offset["top"];
 		//console.log(offsetX)
-		var x = e.clientX -offsetX- handSize;
+		var x = e.clientX - offsetX - handSize;
 		var y = e.clientY - offsetY - handSize;
 		//console.log(x);
 

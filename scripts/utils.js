@@ -50,3 +50,17 @@ function redrawProgressBar(progress){
   $("#timebar").css("width",progress + "%");
   $("#timebar").attr("aria-valuenow", progress);
 }
+
+function magnetEffect(position, magpow){
+	var result = {"x": 0, "y": 0};
+	var handX = parseInt($("#hand").css("left"));
+	var handY = parseInt($("#hand").css("top"));
+	result["x"] = -((position["x"] - handX - handSize/2)/(1000/magpow));
+	result["y"] = -((position["y"] - handY - handSize/2)/(1000/magpow));
+	return result;
+}
+
+function powerUpMagnet(){
+	magpow += 2;
+	console.log("magpow = " + magpow);
+}

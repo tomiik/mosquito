@@ -15,6 +15,8 @@ class GameManager{
 		this.luck = 1;
 		this.money = 0;
 		this.exp = 0;
+		this.time = 100;
+		this.initTime = 100;
 	}
 	start(){
     var me = this;
@@ -45,10 +47,11 @@ class GameManager{
 	timeCountStart(initTime){
 		console.log("timeCountStart():" + initTime)
 		this.setIntervalIdTimer=setInterval(timeCount,progressbarRefresh);
-		var time = initTime;
+		this.initTime = initTime;
+		this.time = initTime;
 		var me=this;
 		function timeCount(){
-			var progress = (time / initTime) * 100;
+			var progress = (me.time / initTime) * 100;
 			progress = Math.floor(progress);
 
 			redrawProgressBar(progress)
@@ -57,7 +60,7 @@ class GameManager{
 				me.timeup();
 			}
 
-			time -= progressbarRefresh;
+			me.time -= progressbarRefresh;
 		}
 	}
 	timeup(){
@@ -283,6 +286,18 @@ class GameManager{
 			this.levelUp();
 		}
 	}
+	fullfillTime(){
+		this.time = this.initTime;
+	}
+	powerUpMagnet(){
+		magpow += 1;
+		console.log("magpow = " + magpow);
+		var fontsize = parseInt($("#magnet").css("font-size"));
+		console.log("fontsize:" + fontsize)
+		fontsize += 1;
+		console.log("fontsize:" + fontsize)
+		$("#magnet").css({"font-size": fontsize + "px"});
+	}
 	widenCursor(size){
 		handSize += size;
 		handSize_2 = handSize/2;
@@ -320,12 +335,33 @@ class GameManager{
 				this.reduceMon(price);
 				consoleWrite("Thunderbolt!");
 				this.mosquitoes.forEach(function(mosquito, index){
-					console.log("1hp:" + mosquito.hp);
 					mosquito.crash(Math.floor(mosquito.hp/2));
-					console.log("2hp:" + mosquito.hp);
-
 				});
 				$("#buy_thunder_price").text(price*2);
+				sfxBought();
+			}
+			else{
+				this.broke();
+			}
+		}else if(str == "time"){
+			var price = parseInt($("#buy_time_price").text());
+			if(this.money >= price){
+				this.reduceMon(price);
+				consoleWrite("Time back!");
+				this.fullfillTime();
+				$("#buy_time_price").text(price*2);
+				sfxBought();
+			}
+			else{
+				this.broke();
+			}
+		}else if(str == "magnet"){
+			var price = parseInt($("#buy_magnet_price").text());
+			if(this.money >= price){
+				this.reduceMon(price);
+				consoleWrite("Power up magnet!");
+				this.powerUpMagnet();
+				$("#buy_magnet_price").text(price*2);
 				sfxBought();
 			}
 			else{

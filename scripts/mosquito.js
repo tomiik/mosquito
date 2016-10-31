@@ -47,6 +47,9 @@ class Mosquito{
 					stop = false;
 				}
 			}
+			//magnet effect
+			var magEffect = magnetEffect(me.position, magpow);
+			me.proceed(magEffect, speed);
 
 			//console.log(carObj.crashed)
 			if(me.dead == false){
