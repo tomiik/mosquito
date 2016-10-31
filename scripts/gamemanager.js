@@ -22,7 +22,7 @@ class GameManager{
     var me = this;
     this.setIntervalIdStatus=setInterval(statusChecker,50);
 		function statusChecker(){
-      if(me.won == true && me.creating == false && parseInt($("#num_of_mosquitoes").text()) <= 0 ){
+      if(me.gameover == false && me.won == true && me.creating == false && parseInt($("#num_of_mosquitoes").text()) <= 0 ){
         me.creating = true;
         me.won = false;
         var data = stages.shift();
@@ -37,7 +37,7 @@ class GameManager{
       }
 			else if(parseInt($("#num_of_mosquitoes").text()) <= 0 && me.won == false && me.creating == false){
         //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-          me.numOfMosquitoes = -1;
+          me.numOfMosquitoes = "";
           me.killed = 0;
 					me.win();
           //me.won = true;
@@ -139,8 +139,6 @@ class GameManager{
     this.clearMosquitoes();
     me.won = true;
 	}
-
-
 
 	click(e){
 		var me = this;

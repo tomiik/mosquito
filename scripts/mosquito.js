@@ -152,9 +152,15 @@ class Mosquito{
     this.domElement.removeClass("exist");
   }
 	setHpBar(hp){
+		if(hp < 0){
+			hp = 0;
+		}
 		var hpbar = this.domElement.parent().children();
-		hpbar = hpbar[0];
-		$(hpbar).css("width", hpbarlen*hp + "px");
-		$(hpbar).css("left", 1-(hpbarlen*hp/2) + "px");
+		for(var i = 0 ; i < hpbar.length; i++){
+			if($(hpbar[i]).hasClass("mosquito-hp")){
+				$(hpbar[i]).css("width", hpbarlen*hp + "px");
+				$(hpbar[i]).css("left", 1-(hpbarlen*hp/2) + "px");
+			}
+		}
 	}
 }
