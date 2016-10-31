@@ -287,23 +287,34 @@ class GameManager{
 	}
 	buy(str){
 		if(str == "weapon"){
-			if(this.money >= 100){
+			var price = parseInt($("#buy_weapon_price").text());
+			console.log(price);
+			if(this.money >= price){
 				this.addStrength(3);
-				this.reducMon(100);
+				this.reducMon(price);
 				consoleWrite("Str: +2, Mon: - 100.");
+				$("#buy_weapon_price").text(price*2);
+				sfxBought();
 			}
 			else{
-				consoleWrite("You don't have enough money.");
+				this.broke();
 			}
 		}else if(str == "widen"){
-			if(this.money >= 1000){
+			var price = parseInt($("#buy_weapon_price").text());
+			if(this.money >= price){
 				this.widenCursor(3);
-				this.reducMon(1000);
+				this.reducMon(price);
 				consoleWrite("Size: +3, Mon: - 100.");
+				$("#buy_weapon_price").text(price*2);
+				sfxBought();
 			}
 			else{
-				consoleWrite("You don't have enough money.");
+				this.broke();
 			}
 		}
+	}
+	broke(){
+		consoleWrite("You don't have enough money.");
+		sfxBroke();
 	}
 }
