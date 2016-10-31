@@ -144,8 +144,9 @@ class Mosquito{
 		return position;
 	}
   reset(){
-    this.domElement.removeClass("dead")
-    this.domElement.removeClass("exist")
+		this.stop();
+    this.domElement.removeClass("dead");
+    this.domElement.removeClass("exist");
   }
 	setHpBar(hp){
 		var hpbar = this.domElement.parent().children();

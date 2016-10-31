@@ -36,13 +36,23 @@ $(document).ready(function(){
 	});
 
 	$("#buy_weapon").mousedown(function(e){
-		console.log("buy");
 		manager.buy("weapon");
 	});
 
 	$("#buy_widen").mousedown(function(e){
-		console.log("buy");
 		manager.buy("widen");
+	});
+
+	$("#buy_thunder").mousedown(function(e){
+		manager.buy("thunder");
+	});
+
+	$("#buy_time").mousedown(function(e){
+		manager.buy("time");
+	});
+
+	$("#buy_magnet").mousedown(function(e){
+		manager.buy("magnet");
 	});
 
 	$(document).keydown(function(key){
