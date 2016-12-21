@@ -62,8 +62,7 @@ class Mosquito{
 		}
 	}
 	redraw(){
-		var temp = this.domElement.parent();
-		temp = temp[0];
+		var temp = this.domElement[0];
 		this.domElement.css("transform", "rotate(" + (this.angle) + "deg)");
 		$(temp).css("left",this.position.x+'px');
 		$(temp).css("top",this.position.y+'px');
@@ -108,34 +107,28 @@ class Mosquito{
 	}
 	created(){
 		this.domElement.addClass("exist")
-		this.setHpBar(this.initialhp);
 
 	}
 	crash(damage){
-		this.hp -= damage;
-		this.setHpBar(this.hp);
-		//console.log("hpbar" + this.power)
-		//console.log(hpbar)
+		//this.hp -= damage;
+		this.hp -= 1;
 
 		if(this.hp <= 0){
-			//SfxDie();
-			//console.log("crashed");
 			this.domElement.addClass("dead")
 			this.dead = true;
 			var score = this.speed * this.initialhp * 100;
-			//console.log("score:" + score);
 			this.stop();
 			return score;
-		} else {
-			//SfxHit();
 		}
+
 		return 0;
 	}
 	getPosition(){
 		var position = {"x": 0, "y": 0};
 
-		var temp = this.domElement.parent();
-		temp = temp[0];
+		//var temp = this.domElement.parent();
+		var temp = this.domElement[0];
+		//console.log(temp)
 
 		var x = parseInt($(temp).css("left"));
 		var y = parseInt($(temp).css("top"));
@@ -148,10 +141,4 @@ class Mosquito{
     this.domElement.removeClass("dead");
     this.domElement.removeClass("exist");
   }
-	setHpBar(hp){
-		var hpbar = this.domElement.parent().children();
-		hpbar = hpbar[0];
-		$(hpbar).css("width", hpbarlen*hp + "px");
-		$(hpbar).css("left", 1-(hpbarlen*hp/2) + "px");
-	}
 }

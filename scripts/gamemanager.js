@@ -5,16 +5,10 @@ class GameManager{
 		this.mosquitoes = [];
 		this.clearTotalKill();//this.killed = 0;
 		this.clearScore();//this.score = 0;
-		//this.generateMosquitoes(3,1);
 		this.start();
 		this.won = true;
     this.creating = false;
     this.gameover = false;
-		this.level = 1;
-		this.strength = 10;
-		this.luck = 1;
-		this.money = 0;
-		this.exp = 0;
 	}
 	start(){
     var me = this;
@@ -103,7 +97,6 @@ class GameManager{
   setMessage(str,time){
     //console.log("setMessage")
     var me = this;
-		consoleWrite(str);
 
     $("#message").text(str);
     me.messageFadeIn();
@@ -124,14 +117,9 @@ class GameManager{
 	win(){
     var me = this;
     this.setMessage("Clear",1000);
-		this.checkLevelUp();
 
 		this.stop_progressbar();
 		var time = this.getTimeRemain();
-		console.log("remain time: " +time);
-		var bonus = Math.floor((time/100) * this.getScore());
-		this.addScore(bonus);
-		consoleWrite("You got " + bonus + "point.")
 		this.refreshStatus();
     this.clearMosquitoes();
     me.won = true;
@@ -165,7 +153,6 @@ class GameManager{
 						}else{
 							SfxHit();
 						}
-						consoleWrite(consoleOutStr);
           }
         }else{
 					//SfxMiss();
@@ -173,8 +160,6 @@ class GameManager{
       });
       this.addTotalKill(killed);
       this.addScore(score);
-			this.addExp(Math.round(score/100))
-			this.addMon(Math.ceil(Math.random() * this.luck*score/10));
       this.refreshStatus();
     }
 	}
@@ -188,22 +173,6 @@ class GameManager{
 	getScore(){
 		return this.score;
 	}
-	addMon(mon){
-		this.money += mon;
-	}
-	reduceMon(mon){
-		this.money -= mon;
-	}
-	addExp(exp){
-		this.exp += exp;
-	}
-
-	addStrength(str){
-		this.strength += str;
-	}
-	addLuck(luck){
-		this.luck += luck;
-	}
   clearScore(){
     this.score = 0;
   }
@@ -213,21 +182,12 @@ class GameManager{
   clearTotalKill(){
     this.killed = 0;
   }
-	levelUp(){
-		this.level++;
-		consoleWrite("Lvel Up!");
-		var str = Math.round(Math.random()*2) + Math.round(Math.random() * this.luck);
-		var luck = Math.round(Math.random());
-		consoleWrite("Lvel Up! str:+" + str + ", lck:+" +luck);
-		this.addStrength(str);
-		this.addLuck(luck);
-		this.refreshStatus();
-	}
 	createMosquitoes(number, speed, power){
     //console.log("createMosquitoes()");
 		var count = 0;
 		var offset = 0;//this.mosquitoes.length;
     var max = number;//Math.min(maxMosquitoes, number + offset);
+		power = 1;
 		this.clearMosquitoes();
 		this.mosquitoes=[];
 		for(var i = offset + 1; i <= max; i++){
@@ -246,95 +206,13 @@ class GameManager{
     this.mosquitoes = [];
   }
 	refreshStatus(){
-		//var str_mos = "mosquitoes:" + (this.numOfMosquitoes - this.killed);
-		//var str_score = ",score:" + this.score;
-		//$("#info").text(str_mos + str_score);
 		this.refreshScore();
-		this.refreshStrength();
-		this.refreshLuck();
-		this.refreshLevel();
-		this.refreshMon();
-		this.refreshExp();
 		this.refreshNumOfMosquitoes();
 	}
 	refreshScore(){
 		$("#score").text(this.score);
 	}
-	refreshStrength(){
-		$("#strength").text(this.strength);
-	}
-	refreshLuck(){
-		$("#luck").text(this.luck);
-	}
-	refreshMon(){
-		$("#money").text(this.money);
-	}
-	refreshExp(){
-		$("#exp").text(this.exp);
-	}
-	refreshLevel(){
-		$("#level").text(this.level);
-	}
 	refreshNumOfMosquitoes(){
 		$("#num_of_mosquitoes").text(this.numOfMosquitoes - this.killed);
-	}
-	checkLevelUp(){
-		if(this.level * this.level * 10 < this.exp ){
-			this.levelUp();
-		}
-	}
-	widenCursor(size){
-		handSize += size;
-		handSize_2 = handSize/2;
-		$("#hand").css({"width": handSize +"px", "height": handSize+"px"});
-	}
-	buy(str){
-		if(str == "weapon"){
-			var price = parseInt($("#buy_weapon_price").text());
-			console.log(price);
-			if(this.money >= price){
-				this.addStrength(3);
-				this.reduceMon(price);
-				consoleWrite("Str: +3");
-				$("#buy_weapon_price").text(price*2);
-				sfxBought();
-			}
-			else{
-				this.broke();
-			}
-		}else if(str == "widen"){
-			var price = parseInt($("#buy_widen_price").text());
-			if(this.money >= price){
-				this.widenCursor(3);
-				this.reduceMon(price);
-				consoleWrite("Size: +3");
-				$("#buy_widen_price").text(price*2);
-				sfxBought();
-			}
-			else{
-				this.broke();
-			}
-		}else if(str == "thunder"){
-			var price = parseInt($("#buy_thunder_price").text());
-			if(this.money >= price){
-				this.reduceMon(price);
-				consoleWrite("Thunderbolt!");
-				this.mosquitoes.forEach(function(mosquito, index){
-					console.log("1hp:" + mosquito.hp);
-					mosquito.crash(Math.floor(mosquito.hp/2));
-					console.log("2hp:" + mosquito.hp);
-
-				});
-				$("#buy_thunder_price").text(price*2);
-				sfxBought();
-			}
-			else{
-				this.broke();
-			}
-		}
-	}
-	broke(){
-		consoleWrite("You don't have enough money.");
-		sfxBroke();
 	}
 }
