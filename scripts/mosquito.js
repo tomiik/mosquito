@@ -1,6 +1,7 @@
 class Mosquito{
 	constructor(inputDomElement,num,speed, hp){
-		this.domElement=inputDomElement;
+		this.domElement=$(inputDomElement);
+		console.log(this.domElement)
 		moveToRandomPosition(this);
 		this.angle= setRandomDirection();
 		this.num = num;
@@ -127,7 +128,8 @@ Mosquito.prototype.crash = function(damage){
 	if(this.hp <= 0){
 		this.domElement.addClass("dead")
 		this.dead = true;
-		var score = this.speed * this.initialhp * 100;
+		//var score = this.speed * this.initialhp * 100;
+		var score = 1
 		this.stop();
 		return score;
 	}
@@ -153,4 +155,8 @@ Mosquito.prototype.reset = function(){
 	this.stop();
   this.domElement.removeClass("dead");
   this.domElement.removeClass("exist");
+}
+
+Mosquito.prototype.remove = function(){
+  this.domElement.remove();
 }

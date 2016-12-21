@@ -3,8 +3,7 @@ class GameManager{
 		//console.log("GameManager");
     this.numOfMosquitoes = 0;
 		this.mosquitoes = [];
-		this.clearTotalKill();//this.killed = 0;
-		this.clearScore();//this.score = 0;
+		this.clearData();
 		this.start();
 		this.won = true;
     this.creating = false;
@@ -17,6 +16,8 @@ class GameManager{
       if(me.won == true && me.creating == false && parseInt($("#num_of_mosquitoes").text()) <= 0 ){
         me.creating = true;
         me.won = false;
+
+				//Load stage data
         var data = stages.shift();
         if(data){
           var mosquito = data[0];
@@ -28,11 +29,9 @@ class GameManager{
         }
       }
 			else if(parseInt($("#num_of_mosquitoes").text()) <= 0 && me.won == false && me.creating == false){
-        //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           me.numOfMosquitoes = -1;
           me.killed = 0;
 					me.win();
-          //me.won = true;
 			}
     }
 	}
@@ -66,6 +65,37 @@ class GameManager{
 			me.gameover = true;
 		},500)
 	}
+	createMosquitoes(number, speed, power){
+		//console.log("createMosquitoes()");
+		var count = 0;
+		var offset = 0;//this.mosquitoes.length;
+		var max = number;//Math.min(maxMosquitoes, number + offset);
+		power = 1;
+		this.clearMosquitoes();
+		this.mosquitoes=[];
+		var mosquito;
+		var playArea = document.getElementById("playArea");
+		for(var i = offset + 1; i <= max; i++){
+			mosquito = document.createElement("div");
+			mosquito.setAttribute("id", "mos" + i);
+			mosquito.setAttribute("class", "mosquito");
+			playArea.appendChild(mosquito);
+
+			this.mosquitoes.push(new Mosquito(mosquito,i, speed, power));
+			count++;
+		}
+		console.log("createMosquitoes()" + count);
+		return count;
+	}
+	clearMosquitoes(){
+		console.log("clearMosquitoes()");
+		//console.log(this.mosquitoes.length)
+		this.mosquitoes.forEach(function(mosquito, index){
+			mosquito.remove();
+		});
+		this.mosquitoes = [];
+	}
+
 	stop_progressbar(){
 		if (this.setIntervalIdTimer){
 			clearInterval(this.setIntervalIdTimer);
@@ -79,13 +109,13 @@ class GameManager{
   createStage(mosquitoes, time, message){
     var me = this;
     setTimeout(function(){
-      me.setMessage(message,1000);
+      View.setMessage(message,1000);
     },0)
     setTimeout(function(){
-      me.setMessage("kill " + mosquitoes[0] + " mosquitoes in " + time + " seconds",1000);
+      View.setMessage("kill " + mosquitoes[0] + " mosquitoes in " + time + " seconds",1000);
     },2000)
     setTimeout(function(){
-      me.setMessage("Go",10);
+      View.setMessage("Go",10);
       me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1],mosquitoes[2]);
       me.refreshStatus();
 			sfxStageStart();
@@ -94,29 +124,10 @@ class GameManager{
       console.log("me.creating = false")
     },4000)
   }
-  setMessage(str,time){
-    //console.log("setMessage")
-    var me = this;
 
-    $("#message").text(str);
-    me.messageFadeIn();
-    setTimeout(function(){
-      //console.log("fadeout")
-      me.messageFadeOut();
-    },time)
-
-  }
-  messageFadeIn(){
-    $("#message").removeClass("bounceOutDown");
-    $("#message").addClass("bounceInDown");
-  }
-  messageFadeOut(){
-    $("#message").removeClass("bounceInDown");
-    $("#message").addClass("bounceOutDown");
-  }
 	win(){
     var me = this;
-    this.setMessage("Clear",1000);
+    View.setMessage("Clear",1000);
 
 		this.stop_progressbar();
 		var time = this.getTimeRemain();
@@ -141,14 +152,10 @@ class GameManager{
         if(e.clientX-offsetX-handSize < position.x && position.x < e.clientX-offsetX && e.clientY-offsetY-handSize < position.y && position.y < e.clientY-offsetY){
           if(!mosquito.dead)
           {
-						var damage = me.damageCalc();
-						var consoleOutStr = "Mosquito" + mosquito.num + " got damage " + damage + ".";
-            score += mosquito.crash(damage);
+            score += mosquito.crash(1);
 						//console.log("score:" + score)
 						if(score != 0){
 							SfxDie();
-							consoleOutStr += " Mosquito" + mosquito.num + " is dead.";
-							consoleOutStr += " " + score + " points." ;
 							killed++;
 						}else{
 							SfxHit();
@@ -163,10 +170,7 @@ class GameManager{
       this.refreshStatus();
     }
 	}
-	damageCalc(strength,luck){
-		var damage = Math.round((this.strength * (Math.random() + 0.5))/2)+ Math.round(this.luck * Math.random());
-		return damage;
-	}
+
   addScore(score){
     this.score += score;
   }
@@ -179,40 +183,18 @@ class GameManager{
   addTotalKill(n){
     this.killed += n;
   }
+
+	clearData(){
+		this.clearTotalKill();//this.killed = 0;
+		this.clearScore();//this.score = 0;
+	}
   clearTotalKill(){
     this.killed = 0;
   }
-	createMosquitoes(number, speed, power){
-    //console.log("createMosquitoes()");
-		var count = 0;
-		var offset = 0;//this.mosquitoes.length;
-    var max = number;//Math.min(maxMosquitoes, number + offset);
-		power = 1;
-		this.clearMosquitoes();
-		this.mosquitoes=[];
-		for(var i = offset + 1; i <= max; i++){
-			this.mosquitoes.push(new Mosquito($('#mos' + i),i, speed, power));
-			count++;
-		}
-    console.log("createMosquitoes()" + count);
-		return count;
-	}
-	clearMosquitoes(){
-    console.log("clearMosquitoes()");
-    //console.log(this.mosquitoes.length)
-    this.mosquitoes.forEach(function(mosquito, index){
-      mosquito.reset();
-    });
-    this.mosquitoes = [];
-  }
 	refreshStatus(){
-		this.refreshScore();
-		this.refreshNumOfMosquitoes();
+		View.refreshScore(this.score);
+		View.refreshNumOfMosquitoes(this.numOfMosquitoes - this.killed);
 	}
-	refreshScore(){
-		$("#score").text(this.score);
-	}
-	refreshNumOfMosquitoes(){
-		$("#num_of_mosquitoes").text(this.numOfMosquitoes - this.killed);
-	}
+
+
 }

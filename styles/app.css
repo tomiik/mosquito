@@ -28,29 +28,12 @@ section {
 .mosquito {
   width: 10px;
   height: 10px;
-  background-image: url("../images/mos.png");
   position: absolute;
-  background-color: transparent;
+  background-color: #000;
   background-size: cover;
   background-width: 100%;
   background-height: 100%;
   visibility: hidden; }
-
-.mosquito-frame {
-  width: 0;
-  height: 0;
-  background-color: transparent;
-  position: absolute; }
-
-.mosquito-hp {
-  background-color: #2f2;
-  width: 0;
-  height: 2px;
-  left: -10px;
-  right: 0;
-  top: -15px;
-  margin: 0 auto;
-  position: absolute; }
 
 .exist {
   visibility: visible; }
@@ -87,14 +70,6 @@ section {
   #info #info-left {
     position: absolute;
     left: 0; }
-  #info #info-center {
-    position: absolute;
-    left: 0;
-    right: 0;
-    font-size: 1em;
-    margin: 0 auto;
-    margin-top: 0px;
-    margin-left: 260px; }
   #info #info-right {
     position: absolute;
     right: 0;
@@ -103,31 +78,6 @@ section {
 .console-text {
   color: #fff;
   font-size: 1.2em; }
-
-#shop .row {
-  display: inline-block; }
-  #shop .row .item-box {
-    float: left;
-    position: relative;
-    background-color: #fff;
-    width: 90px;
-    height: 70px;
-    border-radius: 5px;
-    text-align: center;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 20px; }
-    #shop .row .item-box i {
-      font-size: 2em; }
-    #shop .row .item-box p {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      margin-top: -1.7em; }
-  #shop .row .item-box:hover {
-    background-color: #ccc; }
 
 * {
   -moz-user-select: none;
