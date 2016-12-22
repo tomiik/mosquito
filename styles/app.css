@@ -1,14 +1,19 @@
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   font-family: 'Baloo Paaji', cursive;
   background-color: #28d;
   overflow-y: hidden; }
 
 section {
   width: 800px;
+  height: 480px;
   margin: 0 auto; }
 
 .progress {
-  width: 800px;
+  width: 100%;
   border-style: solid;
   height: 10px;
   border-color: black;
@@ -18,8 +23,8 @@ section {
 
 #playArea {
   background-color: #fff;
-  width: 800px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   position: relative;
   border-color: black;
   border-width: 2px;
@@ -69,17 +74,6 @@ section {
   font-size: 1.2em;
   position: relative;
   padding-bottom: 1.2em; }
-  #info #info-left {
-    position: absolute;
-    left: 0; }
-  #info #info-right {
-    position: absolute;
-    right: 0;
-    clear: left; }
-
-.console-text {
-  color: #fff;
-  font-size: 1.2em; }
 
 * {
   -moz-user-select: none;
