@@ -10,9 +10,11 @@ section {
 .progress {
   width: 800px;
   border-style: solid;
+  height: 10px;
   border-color: black;
-  border-radius: 10px;
-  border-width: 2px; }
+  border-radius: 2px;
+  border-width: 2px;
+  margin-bottom: -2px }
 
 #playArea {
   background-color: #fff;
@@ -23,7 +25,7 @@ section {
   border-width: 2px;
   border-style: solid;
   cursor: none;
-  border-radius: 5px; }
+  border-radius: 2px; }
 
 .mosquito {
   position: absolute;
@@ -62,7 +64,7 @@ section {
   margin-top: -1em; }
 
 #info {
-  color: #fff;
+  color: #28d;
   width: 800px;
   font-size: 1.2em;
   position: relative;

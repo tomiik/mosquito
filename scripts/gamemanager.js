@@ -14,7 +14,7 @@ class GameManager{
     var me = this;
     this.setIntervalIdStatus=setInterval(statusChecker,50);
 		function statusChecker(){
-      if(me.won == true && me.creating == false && parseInt($("#num_of_mosquitoes").text()) <= 0 ){
+      if(me.won == true && me.creating == false && (me.numOfMosquitoes - me.killed) <= 0 ){
         me.creating = true;
         me.won = false;
 
@@ -30,7 +30,7 @@ class GameManager{
           this.redrawProgressBar(100);
         }
       }
-			else if(parseInt($("#num_of_mosquitoes").text()) <= 0 && me.won == false && me.creating == false){
+			else if((me.numOfMosquitoes - me.killed) <= 0 && me.won == false && me.creating == false){
           me.numOfMosquitoes = -1;
           me.killed = 0;
 					me.win();
