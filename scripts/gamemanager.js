@@ -8,6 +8,7 @@ class GameManager{
 		this.won = true;
     this.creating = false;
     this.gameover = false;
+		this.stageNum = 0;
 	}
 	start(){
     var me = this;
@@ -18,8 +19,9 @@ class GameManager{
         me.won = false;
 
 				//Load stage data
-        var data = stages.shift();
-        if(data){
+        //var data = stages.shift();
+				var data = generateStage(++me.stageNum)
+				if(data){
           var mosquito = data[0];
           var time = data[1];
           var message = data[2];
@@ -65,12 +67,11 @@ class GameManager{
 			me.gameover = true;
 		},500)
 	}
-	createMosquitoes(number, speed, power){
+	createMosquitoes(number, speed){
 		//console.log("createMosquitoes()");
 		var count = 0;
 		var offset = 0;//this.mosquitoes.length;
 		var max = number;//Math.min(maxMosquitoes, number + offset);
-		power = 1;
 		this.clearMosquitoes();
 		this.mosquitoes=[];
 		var mosquito;
@@ -81,7 +82,7 @@ class GameManager{
 			mosquito.setAttribute("class", "mosquito");
 			playArea.appendChild(mosquito);
 
-			this.mosquitoes.push(new Mosquito(mosquito,i, speed, power));
+			this.mosquitoes.push(new Mosquito(mosquito,i, speed));
 			count++;
 		}
 		console.log("createMosquitoes()" + count);
@@ -116,7 +117,7 @@ class GameManager{
     },2000)
     setTimeout(function(){
       View.setMessage("Go",10);
-      me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1],mosquitoes[2]);
+      me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1]);
       me.refreshStatus();
 			sfxStageStart();
       me.timeCountStart(time*1000);

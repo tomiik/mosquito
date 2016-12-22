@@ -1,5 +1,5 @@
 class Mosquito{
-	constructor(inputDomElement,num,speed, hp){
+	constructor(inputDomElement,num,speed){
 		this.domElement=$(inputDomElement);
 		this.size = 3
 		this.setSize(this.size);

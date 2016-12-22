@@ -1,6 +1,8 @@
-function generateStage(mosquitoes, speed){
-  var mosquitoes = Math.round(Math.random() * mosquitoes);
-  var speed = (Math.random() * speed);
-  var time = 2 + mosquitoes / speed;
-  return [mosquitoes,speed,time];
+function generateStage(n){
+
+  var num = (Math.floor(n % 4) + 1) * 4;
+  var speed = Math.floor((n / 5)) * 0.2 + 0.5;
+  var time = 10;
+  var message = "stage " + n;
+  return [[num, speed],time,message];
 }
