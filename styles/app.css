@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  overflow-y: hidden;
 }
 body {
   height: 100%;
@@ -9,7 +10,7 @@ body {
 
 section {
   width: 800px;
-  height: 480px;
+  height: 400px;
   margin: 0 auto; }
 
 .progress {
