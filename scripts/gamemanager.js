@@ -172,7 +172,7 @@ class GameManager{
 		// var ret =  distance < handSize
 		 var ret = (clickPos.x - offsetX - (handSize/2) < position.x &&
 		 			position.x < clickPos.x - offsetX + (handSize/2)&&
-		 			clickPos.y - offsetY-handSize -(handSize/2) < position.y &&
+		 			clickPos.y - offsetY-(handSize/2) < position.y &&
 		 			position.y < clickPos.y - offsetY + (handSize/2));
 		return ret
 	}
