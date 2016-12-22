@@ -21,10 +21,10 @@ class GameManager{
         var data = stages.shift();
         if(data){
           var mosquito = data[0];
-          var speed = data[1];
+          var time = data[1];
           var message = data[2];
           console.log("creating" + message)
-          me.createStage(mosquito,speed,message);
+          me.createStage(mosquito,time,message);
           this.redrawProgressBar(100);
         }
       }
@@ -136,9 +136,13 @@ class GameManager{
     me.won = true;
 	}
 
+	tap(clickPos){
+		clickPos.x += handSize/2;
+		clickPos.y += handSize/2;
+		this.click(clickPos)
+	}
 
-
-	click(e){
+	click(clickPos){
 		var me = this;
     if(this.gameover == false){
       var killed = 0;
@@ -148,7 +152,7 @@ class GameManager{
 			var offsetY = offset["top"];
       this.mosquitoes.forEach(function(mosquito, index){
 
-        if(me.hitJudge(e, mosquito, offsetX, offsetY)){
+        if(me.hitJudge(clickPos, mosquito, offsetX, offsetY)){
           if(mosquito.crash()){
 						SfxDie();
 						killed++;
@@ -161,12 +165,17 @@ class GameManager{
       this.refreshStatus();
     }
 	}
-	hitJudge(e, mosquito,offsetX, offsetY){
+
+	hitJudge(clickPos, mosquito,offsetX, offsetY){
 		var position = mosquito.getCenterPosition();
-		var ret = (e.clientX - offsetX - handSize < position.x &&
-					position.x < e.clientX - offsetX &&
-					e.clientY - offsetY-handSize < position.y &&
-					position.y < e.clientY - offsetY);
+		console.log(clickPos)
+		// var distance = Math.sqrt(Math.pow((clickPos.x - offsetX - position.x),2) + Math.pow((clickPos.y - offsetY - position.y),2));
+		// console.log(distance)
+		// var ret =  distance < handSize
+		 var ret = (clickPos.x - offsetX - (handSize/2) < position.x &&
+		 			position.x < clickPos.x - offsetX + (handSize/2)&&
+		 			clickPos.y - offsetY-handSize -(handSize/2) < position.y &&
+		 			position.y < clickPos.y - offsetY + (handSize/2));
 		return ret
 	}
 
