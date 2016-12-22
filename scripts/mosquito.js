@@ -1,7 +1,7 @@
 class Mosquito{
 	constructor(inputDomElement,num,speed, hp){
 		this.domElement=$(inputDomElement);
-		this.size = 10
+		this.size = 3
 		this.setSize(this.size);
 		this.position = Util.getRandomPosition();
 		this.angle = Util.getRandomDirection();
