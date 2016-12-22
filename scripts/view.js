@@ -12,7 +12,6 @@ var View = {
       //console.log("fadeout")
       View.messageFadeOut();
     },time)
-
   },
   messageFadeIn: function(){
     $("#message").removeClass("bounceOutDown");
