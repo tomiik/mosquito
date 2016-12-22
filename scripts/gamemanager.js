@@ -137,8 +137,6 @@ class GameManager{
 	}
 
 	tap(clickPos){
-		clickPos.x += handSize/2;
-		clickPos.y += handSize/2;
 		this.click(clickPos)
 	}
 
