@@ -113,9 +113,6 @@ class GameManager{
       View.setMessage(message,1000);
     },0)
     setTimeout(function(){
-      View.setMessage("kill " + mosquitoes[0] + " mosquitoes in " + time + " seconds",1000);
-    },2000)
-    setTimeout(function(){
       View.setMessage("Go",10);
       me.numOfMosquitoes = me.createMosquitoes(mosquitoes[0],mosquitoes[1]);
       me.refreshStatus();
@@ -123,12 +120,11 @@ class GameManager{
       me.timeCountStart(time*1000);
       me.creating = false;
       console.log("me.creating = false")
-    },4000)
+    },2000)
   }
 
 	win(){
     var me = this;
-    View.setMessage("Clear",1000);
 
 		this.stop_progressbar();
 		var time = this.getTimeRemain();
