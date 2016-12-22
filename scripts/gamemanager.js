@@ -198,6 +198,4 @@ class GameManager{
 		View.refreshScore(this.score);
 		View.refreshNumOfMosquitoes(this.numOfMosquitoes - this.killed);
 	}
-
-
 }
