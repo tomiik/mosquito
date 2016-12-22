@@ -44,7 +44,7 @@ class GameManager{
 			var progress = (time / initTime) * 100;
 			progress = Math.floor(progress);
 
-			redrawProgressBar(progress)
+			View.redrawProgressBar(progress)
 
 			if(progress <= 0){
 				me.timeup();
@@ -143,32 +143,31 @@ class GameManager{
     if(this.gameover == false){
       var killed = 0;
       var score = 0;
+			var offset = $("#playArea").position();
+			var offsetX = offset["left"];
+			var offsetY = offset["top"];
       this.mosquitoes.forEach(function(mosquito, index){
-        var position = mosquito.getPosition();
-				var offset = $("#playArea").position();
-				var offsetX = offset["left"];
-				var offsetY = offset["top"];
 
-        if(e.clientX-offsetX-handSize < position.x && position.x < e.clientX-offsetX && e.clientY-offsetY-handSize < position.y && position.y < e.clientY-offsetY){
-          if(!mosquito.dead)
-          {
-            score += mosquito.crash(1);
-						//console.log("score:" + score)
-						if(score != 0){
-							SfxDie();
-							killed++;
-						}else{
-							SfxHit();
-						}
-          }
-        }else{
-					//SfxMiss();
-				}
-      });
+        if(me.hitJudge(e, mosquito, offsetX, offsetY)){
+          if(mosquito.crash()){
+						SfxDie();
+						killed++;
+						score++;
+					};
+      	};
+			});
       this.addTotalKill(killed);
       this.addScore(score);
       this.refreshStatus();
     }
+	}
+	hitJudge(e, mosquito,offsetX, offsetY){
+		var position = mosquito.getCenterPosition();
+		var ret = (e.clientX - offsetX - handSize < position.x &&
+					position.x < e.clientX - offsetX &&
+					e.clientY - offsetY-handSize < position.y &&
+					position.y < e.clientY - offsetY);
+		return ret
 	}
 
   addScore(score){

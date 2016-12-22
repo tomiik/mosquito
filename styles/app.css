@@ -26,8 +26,6 @@ section {
   border-radius: 5px; }
 
 .mosquito {
-  width: 10px;
-  height: 10px;
   position: absolute;
   background-color: #000;
   background-size: cover;

@@ -1,47 +1,48 @@
 class Mosquito{
 	constructor(inputDomElement,num,speed, hp){
 		this.domElement=$(inputDomElement);
-		console.log(this.domElement)
-		moveToRandomPosition(this);
-		this.angle= setRandomDirection();
+		this.size = 50
+		this.setSize(this.size);
+		this.position = Util.getRandomPosition();
+		this.angle = Util.getRandomDirection();
 		this.num = num;
 		this.speed=speed;
-		this.hp=hp;
-		this.initialhp = hp;
 		this.created();
 		this.nextDirection = 0;
 		this.dead = false;
 		this.move();
-
-		this.position = {"x":0, "y":0};
 	}
+}
+Mosquito.prototype.setSize = function(size){
+	$(this.domElement[0]).css("width",size+'px');
+	$(this.domElement[0]).css("height",size+'px');
 }
 
 Mosquito.prototype.move = function(){
 	this.setIntervalId=setInterval(moveMosquito,1)
 	const stopDulation = 100;
-	var domElement=this.domElement;
-	var me=this;
-	var position = me.getPosition(this);
+	var domElement = this.domElement;
+	var me = this;
 	var timer = 30;
 	var nextDirection = 0;
 	var stop = false;
 	var stopcount = stopDulation;
 	var direction = {"x": 0, "y":0};
+	var position = this.position;
 	var speed = this.speed;
 	var angle = this.angle;
 
 	function moveMosquito(){
 		//angle calc
 		angle += nextDirection;
-		angle = degin360(angle);
+		angle = Util.degin360(angle);
 
 		if(stop == false){
 			//calc direction
-			direction = getDirection(angle);
+			direction = Util.getDirection(angle);
 
 			//proceed
-			me.proceed(direction, speed);
+			this.position = me.proceed(direction, speed, position);
 		} else{
 			stopcount--;
 			if(stopcount < 0){
@@ -53,23 +54,17 @@ Mosquito.prototype.move = function(){
 		//console.log(carObj.crashed)
 		if(me.dead == false){
 			me.refreshParams(speed,angle,position);
-			me.redraw();
+			View.redrawMosquito(me);
 		}
 		if(timer < 0){
 			timer = me.getNextSleep();
 			nextDirection = me.getNextDirection();
-			stop = me.iWantStop();
+			stop = me.iWantToStop();
 		}
 		timer--;
 	}
 }
 
-Mosquito.prototype.redraw = function(){
-	var temp = this.domElement[0];
-	this.domElement.css("transform", "rotate(" + (this.angle) + "deg)");
-	$(temp).css("left",this.position.x+'px');
-	$(temp).css("top",this.position.y+'px');
-}
 
 Mosquito.prototype.refreshParams = function(speed, angle, position){
 	this.angle = angle;
@@ -85,7 +80,7 @@ Mosquito.prototype.getNextDirection = function(){
 	return (Math.random()  - 0.5) * 4;
 }
 
-Mosquito.prototype.iWantStop = function(){
+Mosquito.prototype.iWantToStop = function(){
 	return Math.random() > 0.8;
 }
 
@@ -95,25 +90,27 @@ Mosquito.prototype.stop = function(){
 	}
 }
 
-Mosquito.prototype.proceed = function(direction,speed){
-	this.position.x += speed * direction.x;
-	this.position.y += speed * direction.y;
-	this.borderCheck();
+Mosquito.prototype.proceed = function(direction,speed, position){
+	position.x += speed * direction.x;
+	position.y += speed * direction.y;
+	position = this.borderCheck(position);
+	return position;
 }
 
-Mosquito.prototype.borderCheck = function(){
-	if(this.position.x >= xMax){
+Mosquito.prototype.borderCheck = function(position){
+	if(position.x >= xMax - this.size){
 		//				carDirection += 180
-		this.position.x = xMin;
-	} else if(this.position.x <= xMin){
-		this.position.x = xMax;
+		position.x = xMin;
+	} else if(position.x <= xMin){
+		position.x = xMax - this.size;
 	}
 
-	if(this.position.y >= yMax){
-		this.position.y = yMin;
-	} else if(this.position.y <= yMin){
-		this.position.y += yMax;
+	if(position.y >= yMax - this.size){
+		position.y = yMin;
+	} else if(position.y <= yMin){
+		position.y += yMax - this.size;
 	}
+	return position;
 }
 
 Mosquito.prototype.created = function(){
@@ -121,34 +118,14 @@ Mosquito.prototype.created = function(){
 
 }
 
-Mosquito.prototype.crash = function(damage){
-	//this.hp -= damage;
-	this.hp -= 1;
-
-	if(this.hp <= 0){
-		this.domElement.addClass("dead")
+Mosquito.prototype.crash = function(){
+	if(this.dead != true){
 		this.dead = true;
-		//var score = this.speed * this.initialhp * 100;
-		var score = 1
+		this.domElement.addClass("dead")
 		this.stop();
-		return score;
+		return true;
 	}
-
-	return 0;
-}
-
-Mosquito.prototype.getPosition = function(){
-	var position = {"x": 0, "y": 0};
-
-	//var temp = this.domElement.parent();
-	var temp = this.domElement[0];
-	//console.log(temp)
-
-	var x = parseInt($(temp).css("left"));
-	var y = parseInt($(temp).css("top"));
-	position.x = x;
-	position.y = y;
-	return position;
+	return false;
 }
 
 Mosquito.prototype.reset = function(){
@@ -159,4 +136,12 @@ Mosquito.prototype.reset = function(){
 
 Mosquito.prototype.remove = function(){
   this.domElement.remove();
+}
+
+Mosquito.prototype.getCenterPosition = function(){
+	var x = this.position.x;
+	var y = this.position.y;
+	x += this.size/2;
+	y += this.size/2;
+  return {"x": x, "y":y}
 }
