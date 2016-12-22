@@ -9,6 +9,7 @@ class GameManager{
     this.creating = false;
     this.gameover = false;
 		this.stageNum = 0;
+		this.combo = 0;
 	}
 	start(){
     var me = this;
@@ -155,8 +156,14 @@ class GameManager{
 					};
       	};
 			});
+			if(score > 0){
+				me.combo++;
+			}else{
+				me.combo = 0;
+			}
+			console.log("combo:" + me.combo)
       this.addTotalKill(killed);
-      this.addScore(score);
+      this.addScore(score * me.combo);
       this.refreshStatus();
     }
 	}
@@ -195,7 +202,7 @@ class GameManager{
     this.killed = 0;
   }
 	refreshStatus(){
-		View.refreshScore(this.score);
+		View.refreshScore(this.score, this.combo);
 		View.refreshNumOfMosquitoes(this.numOfMosquitoes - this.killed);
 	}
 }

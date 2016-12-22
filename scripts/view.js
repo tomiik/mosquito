@@ -2,8 +2,8 @@ var View = {
   refreshNumOfMosquitoes: function(number){
     $("#num_of_mosquitoes").text(number);
   },
-  refreshScore: function(number){
-    $("#score").text(number);
+  refreshScore: function(score, combo){
+    $("#score").text(score + " ( combo: " + combo +  " )");
   },
   setMessage: function(str,time){
     $("#message").text(str);
